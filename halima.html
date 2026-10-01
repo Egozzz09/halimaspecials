@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e38">
+  <title>A little space for Halima</title>
+  <style>
+    :root {
+      --paper: #f8f5ed;
+      --ink: #173e38;
+      --muted: #68756d;
+      --gold: #a88047;
+      --line: #173e3824;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 6px;
+    }
+
+    ::selection { background: #dccbab; }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 10% 15%, #dce6db 0, transparent 45%),
+        radial-gradient(ellipse at 95% 60%, #f0dfc7 0, transparent 45%);
+    }
+
+    .orb {
+      position: absolute;
+      width: 55vw;
+      height: 55vw;
+      border-radius: 50%;
+      background: #c2d5c033;
+      filter: blur(50px);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    .orb:last-child {
+      right: -20%;
+      bottom: 0;
+      background: #ddbc8930;
+      animation-delay: -9s;
+    }
+
+    @keyframes drift {
+      to { transform: translate(12vw, 8vh) scale(1.12); }
+    }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      height: 3px;
+      width: 100%;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 20;
+    }
+
+    header {
+      padding: 25px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .monogram {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-style: italic;
+      font-size: 24px;
+      text-decoration: none;
+    }
+
+    .label {
+      font: 10px/1.6 system-ui, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    main { max-width: 1200px; margin: auto; }
+
+    .hero {
+      position: relative;
+      min-height: 86svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 90px 24px;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    .eyebrow { color: var(--gold); }
+
+    h1 {
+      margin: 20px 0;
+      font-size: clamp(78px, 15vw, 168px);
+      font-weight: 400;
+      letter-spacing: -7px;
+      line-height: 1.05;
+      animation: arrive 1.3s ease both;
+    }
+
+    h1 em { font-weight: 400; }
+
+    .hero-copy {
+      max-width: 390px;
+      font-size: clamp(18px, 3vw, 23px);
+      line-height: 1.7;
+      color: var(--muted);
+      animation: arrive 1.3s .15s ease both;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      min-height: 52px;
+      padding: 15px 26px;
+      border: 1px solid var(--ink);
+      border-radius: 50px;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      font: 12px system-ui, sans-serif;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background .3s, color .3s, transform .3s;
+    }
+
+    .pill:hover {
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-3px);
+    }
+
+    .hero .pill { margin-top: 24px; }
+
+    .flower {
+      position: absolute;
+      width: clamp(140px, 23vw, 270px);
+      color: #67816b;
+      opacity: .35;
+      z-index: -1;
+      transform-origin: bottom center;
+      animation: sway 8s ease-in-out infinite alternate;
+    }
+
+    .flower.left { left: -25px; bottom: 35px; }
+
+    .flower.right {
+      right: -25px;
+      top: 35px;
+      rotate: 180deg;
+      animation-delay: -4s;
+    }
+
+    @keyframes sway {
+      from { transform: rotate(-5deg); }
+      to { transform: rotate(5deg); }
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section { padding: 90px 7%; }
+
+    .section-heading { max-width: 570px; margin-bottom: 40px; }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin: 14px 0;
+    }
+
+    .subtext {
+      font: 14px/1.9 system-ui, sans-serif;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 30px;
+      min-height: 260px;
+      background: #ffffff69;
+      border: 1px solid #ffffff;
+      border-radius: 100px 100px 15px 15px;
+      text-align: center;
+      transition: transform .4s, box-shadow .4s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 45px #173e380b;
+    }
+
+    .card-number {
+      display: block;
+      color: var(--gold);
+      font-style: italic;
+      margin: 20px 0 30px;
+    }
+
+    h3 { font-size: 24px; font-weight: 400; }
+
+    .card p {
+      font: 13px/1.9 system-ui, sans-serif;
+      color: var(--muted);
+    }
+
+    .pause {
+      margin: 30px 4%;
+      padding: 80px 25px;
+      text-align: center;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 160px 160px 20px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pause::before, .pause::after {
+      content: "";
+      position: absolute;
+      border: 1px solid #f8f5ed12;
+      border-radius: 50%;
+      width: 370px;
+      height: 370px;
+      pointer-events: none;
+    }
+
+    .pause::before { left: -200px; top: -80px; }
+    .pause::after { right: -200px; bottom: -100px; }
+
+    .pause .label { color: #d4b685; }
+
+    blockquote {
+      max-width: 650px;
+      margin: 28px auto;
+      font-size: clamp(25px, 4vw, 39px);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .pause small {
+      color: #d4ddd5;
+      font: 12px/1.8 system-ui, sans-serif;
+    }
+
+    .notes-section { text-align: center; }
+
+    .notes-section .section-heading { margin: 0 auto 35px; }
+
+    .note-box {
+      max-width: 620px;
+      margin: 32px auto;
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    #little-note {
+      font-size: clamp(22px, 4vw, 29px);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .note-count {
+      margin-top: 20px;
+      color: var(--muted);
+      font: 11px system-ui, sans-serif;
+      letter-spacing: 2px;
+    }
+
+    .letter-section { padding-top: 35px; }
+
+    .letter {
+      max-width: 730px;
+      margin: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf7;
+      box-shadow: 0 25px 80px #173e3808;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 30px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .seal {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #e9d5ae;
+      background: var(--ink);
+      border: 4px double #8caa90;
+      font-style: italic;
+      font-size: 26px;
+    }
+
+    .summary-title { display: block; font-size: 24px; }
+
+    .summary-hint {
+      display: block;
+      margin-top: 7px;
+      font: 11px system-ui, sans-serif;
+      color: var(--muted);
+    }
+
+    .plus { margin-left: auto; font-size: 25px; }
+
+    details[open] .plus { rotate: 45deg; }
+
+    .letter-body {
+      padding: 0 38px 38px;
+      font-size: 18px;
+      line-height: 1.95;
+    }
+
+    details[open] .letter-body { animation: arrive .6s ease both; }
+
+    .signature { color: var(--gold); font-style: italic; }
+
+    footer {
+      text-align: center;
+      padding: 35px 24px 55px;
+      color: var(--muted);
+      font: 11px/2 system-ui, sans-serif;
+    }
+
+    .footer-flower { color: var(--gold); font-size: 30px; }
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .9s ease, transform .9s ease;
+    }
+
+    .js .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 650px) {
+      header .label { letter-spacing: 1.5px; font-size: 9px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: auto; padding: 25px 30px; }
+      .card-number { margin: 10px 0; }
+      section { padding: 65px 7%; }
+      h1 { letter-spacing: -4px; }
+      .flower { opacity: .2; }
+      .hero { min-height: 80svh; }
+      .letter-body { padding: 0 24px 28px; }
+      summary { padding: 24px; gap: 14px; }
+      .summary-title { font-size: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- Reusable, hand-drawn botanical illustration. -->
+  <svg width="0" height="0" aria-hidden="true"
+       style="position:absolute">
+    <defs>
+      <symbol id="botanical" viewBox="0 0 200 350">
+        <g fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M100 340 Q75 230 105 90"/>
+          <path d="M93 270 Q30 260 32 205 Q83 204 93 270Z"/>
+          <path d="M94 230 Q155 225 166 174 Q110 173 94 230Z"/>
+          <path d="M96 182 Q46 168 53 122 Q96 132 96 182Z"/>
+          <path d="M100 142 Q145 129 147 94 Q112 95 100 142Z"/>
+          <path d="M105 92 C57 82 66 34 91 51
+                   C72 5 122 0 119 43
+                   C150 11 177 50 139 67
+                   C183 71 151 112 124 90
+                   C131 121 93 126 105 92Z"/>
+          <circle cx="115" cy="73" r="10"/>
+          <path d="M36 209 89 263 M160 181 99 225
+                   M57 129 93 178"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header>
+    <a class="monogram" href="#home" aria-label="Back to top">h.</a>
+    <span class="label">A little thought, made into a place</span>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="title">
+      <svg class="flower left" aria-hidden="true">
+        <use href="#botanical"></use>
+      </svg>
+      <svg class="flower right" aria-hidden="true">
+        <use href="#botanical"></use>
+      </svg>
+
+      <span class="label eyebrow">For someone quietly special</span>
+      <h1 id="title"><em>Halima.</em></h1>
+      <p class="hero-copy">
+        In a world that is always rushing,<br>
+        here is a little space that isn’t.
+        <br>Just for you.
+      </p>
+      <a class="pill" href="#small-things">
+        Take your time <span aria-hidden="true">↓</span>
+      </a>
+    </section>
+
+    <section id="small-things" aria-labelledby="things-title">
+      <div class="section-heading reveal">
+        <span class="label eyebrow">01 / The small things</span>
+        <h2>Some things deserve<br>a little more care.</h2>
+        <p class="subtext">
+          Not everything meaningful needs a grand announcement.
+          Sometimes, a little thought is enough.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <span class="card-number">i.</span>
+          <h3>Your trust.</h3>
+          <p>
+            Something I’m grateful for.
+            Something I never want to take for granted.
+          </p>
+        </article>
+        <article class="card reveal">
+          <span class="card-number">ii.</span>
+          <h3>The ordinary days.</h3>
+          <p>
+            A simple conversation can become
+            the nicest part of an otherwise ordinary day.
+          </p>
+        </article>
+        <article class="card reveal">
+          <span class="card-number">iii.</span>
+          <h3>This little effort.</h3>
+          <p>
+            I could have sent a message.
+            Instead, I wanted to make something you could return to.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="pause reveal" aria-label="A quiet thought">
+      <span class="label">A thought between the lines</span>
+      <blockquote>
+        “Kuch log din ka hissa hote hain.<br>
+        Aur kuch log, din ka achha hissa.”
+      </blockquote>
+      <small>Some sentences bring someone to mind. This one brought you.</small>
+    </section>
+
+    <section class="notes-section" aria-labelledby="notes-title">
+      <div class="section-heading reveal">
+        <span class="label eyebrow">02 / A few quiet wishes</span>
+        <h2>A little good,<br>for your day.</h2>
+        <p class="subtext">
+          Nothing to solve. Nothing to answer.<br>
+          Just a few things I hope life brings you.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <p id="little-note" aria-live="polite" aria-atomic="true">
+          May there always be something in your day
+          that makes you smile without trying.
+        </p>
+      </div>
+
+      <button class="pill" id="next-note" type="button" hidden>
+        Another little wish <span aria-hidden="true">↗</span>
+      </button>
+      <p class="note-count" id="note-count"></p>
+    </section>
+
+    <section class="letter-section reveal" aria-label="A personal note">
+      <details class="letter">
+        <summary>
+          <span class="seal" aria-hidden="true">h</span>
+          <span>
+            <span class="summary-title">One last little note.</span>
+            <span class="summary-hint">Open whenever you feel like it.</span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+
+        <div class="letter-body">
+          <p>Halima,</p>
+          <p>
+            Yeh page banane ki koi badi wajah nahi hai.
+            Bas socha, tumhare liye kuch aisa banaun
+            jisme thoda waqt ho, thodi soch ho,
+            aur har chhoti cheez jaan-boojh kar chuni gayi ho.
+          </p>
+          <p>
+            Tumhara mujh par bharosa mere liye maayne rakhta hai.
+            Aur main chahta hoon ki meri taraf se tumhe hamesha
+            izzat, sachchai aur apni jagah mile.
+          </p>
+
+          <!-- Personal touch: replace this paragraph with a real,
+               small memory you share. Avoid inventing one. -->
+          <p>
+            Kuch baatein bahut simple hoti hain —
+            tumse baat karna achha lagta hai.
+            Bas, aaj usi simple si baat ko
+            thoda khoobsurat bana diya.
+          </p>
+          <p>
+            Iska koi perfect reply nahi chahiye.
+            Umeed hai, yeh tumhare din mein ek chhoti si
+            muskurahat jod de.
+          </p>
+          <p class="signature">
+            Tumhare liye, thoda waqt nikaal kar.
+          </p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-flower" aria-hidden="true">❀</div>
+    Made with thought, not just code.<br>
+    A small corner of the internet, for Halima.
+  </footer>
+
+  <script>
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    // Content stays visible if JavaScript is unavailable.
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.documentElement.classList.add("js");
+      document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+      });
+    }
+
+    const wishes = [
+      "May there always be something in your day that makes you smile without trying.",
+      "May the things you work quietly towards find their way to you.",
+      "May you always have space to be yourself, without having to explain every little thing.",
+      "May your kindness meet kindness in return.",
+      "Aur kabhi din thoda bhaari lage, toh umeed hai tumhe koi chhoti si wajah mil jaaye muskurane ki."
+    ];
+
+    let wishIndex = 0;
+    let noteAnimation;
+    const note = document.getElementById("little-note");
+    const count = document.getElementById("note-count");
+    const nextButton = document.getElementById("next-note");
+
+    function updateCount() {
+      count.textContent =
+        `${String(wishIndex + 1).padStart(2, "0")} / ` +
+        `${String(wishes.length).padStart(2, "0")}`;
+    }
+
+    nextButton.hidden = false;
+    updateCount();
+
+    nextButton.addEventListener("click", () => {
+      wishIndex = (wishIndex + 1) % wishes.length;
+      note.textContent = wishes[wishIndex];
+      updateCount();
+
+      if (!reducedMotion.matches && typeof note.animate === "function") {
+        noteAnimation?.cancel();
+        noteAnimation = note.animate([
+          { opacity: 0, transform: "translateY(10px)" },
+          { opacity: 1, transform: "translateY(0)" }
+        ], {
+          duration: 450,
+          easing: "ease-out"
+        });
+      }
+    });
+
+    const progress = document.querySelector(".progress");
+    let ticking = false;
+
+    function updateProgress() {
+      const available =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const fraction = available > 0
+        ? Math.min(1, Math.max(0, window.scrollY / available))
+        : 0;
+
+      progress.style.transform = `scaleX(${fraction})`;
+      ticking = false;
+    }
+
+    function scheduleProgress() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateProgress);
+      }
+    }
+
+    window.addEventListener("scroll", scheduleProgress, { passive: true });
+    window.addEventListener("resize", scheduleProgress);
+    document.querySelector(".letter").addEventListener(
+      "toggle", scheduleProgress
+    );
+    updateProgress();
+  </script>
+</body>
+</html>
